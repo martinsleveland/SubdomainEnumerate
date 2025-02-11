@@ -5,14 +5,11 @@ import signal
 import requests
 import concurrent.futures
 
-# User input for target domain
-target_domain = input("Enter the domain you want to enumerate: ").strip()
-
-# Flag to track script termination
+# Handle Ctrl + C gracefully
 stop_execution = False
 
 def handle_interrupt(signal, frame):
-    """Handle Ctrl + C (SIGINT) gracefully"""
+    """Handle Ctrl + C"""
     global stop_execution
     print("\nCtrl + C detected. Exiting...")
     stop_execution = True
@@ -21,11 +18,15 @@ def handle_interrupt(signal, frame):
 # Register the signal handler
 signal.signal(signal.SIGINT, handle_interrupt)
 
+# Get user input
+target_domain = input("Enter the domain you want to enumerate: ").strip()
+wordlist_path = input("Enter the path to your wordlist file: ").strip()
+
 def load_subdomains(wordlist):
     """Load subdomains from a file"""
     if not os.path.exists(wordlist):
         print(f"Error: The file {wordlist} does not exist!")
-        return []
+        sys.exit(1)
     
     with open(wordlist, 'r') as f:
         return [line.strip() for line in f if line.strip()]
@@ -73,7 +74,6 @@ def enumerate_subdomains(wordlist):
 
 if __name__ == "__main__":
     # Load wordlist
-    wordlist_path = r"WORDLIST" # Replace this string with the wordlist you want to use
     wordlist = load_subdomains(wordlist_path)
 
     # If wordlist is empty, exit
