@@ -45,12 +45,12 @@ def scan_page(url):
         # Check for sensitive keywords
         for keyword in SENSITIVE_KEYWORDS:
             if keyword in page_text:
-                print(f"⚠️ Possible exposed {keyword} found on {url}")
+                print(f"[+] Possible exposed {keyword} found on {url}")
 
         # Detect outdated software versions
         for software, old_version in OUTDATED_SOFTWARE.items():
             if f"{software.lower()} {old_version}" in page_text:
-                print(f"⚠️ Outdated {software} version {old_version} found on {url}")
+                print(f"[+] Outdated {software} version {old_version} found on {url}")
 
         # Detect email addresses (potential leaks)
         emails = re.findall(r"[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}", page_text)
