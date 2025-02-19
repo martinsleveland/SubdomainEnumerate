@@ -1,7 +1,7 @@
 # WebExploration
 
 
-i claim no responsibility for any actions of the user(s) of the script... Ok? :)
+i claim no responsibility for any actions of the user(s) of the scripts... Ok? :)
 
 
 The Subdomain enumeration looks for subdomains under the domain you specify.
